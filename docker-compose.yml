@@ -1,0 +1,12 @@
+
+services:
+  springboot-image:
+    image: spring-api-image-gestor-medico
+    container_name: springboot-container
+    ports:
+      - "8862:8862"
+    networks:
+      - red_compartida
+networks:
+  red_compartida:
+    external: true
