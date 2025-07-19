@@ -33,15 +33,13 @@ public class PacienteMapper {
     }
 
     public static void actualizarEntityDesdeDTO(Paciente paciente, PacienteDTO dto) {
-
-        paciente.setNombre(dto.getNombre());
-        paciente.setDocumento(dto.getDocumento());
-        paciente.setCorreo(dto.getCorreo());
-        paciente.setTelefono(dto.getTelefono());
-        paciente.setFechaNacimiento(dto.getFechaNacimiento());
-        paciente.setDireccionCompleta(dto.getDireccionCompleta());
-        paciente.setTipoSangre(dto.getTipoSangre());
+        if (dto.getNombre() != null) paciente.setNombre(dto.getNombre());
+        if (dto.getDocumento() != null) paciente.setDocumento(dto.getDocumento());
+        if (dto.getCorreo() != null) paciente.setCorreo(dto.getCorreo());
+        if (dto.getTelefono() != null) paciente.setTelefono(dto.getTelefono());
+        if (dto.getFechaNacimiento() != null) paciente.setFechaNacimiento(dto.getFechaNacimiento());
+        if (dto.getDireccionCompleta() != null) paciente.setDireccionCompleta(dto.getDireccionCompleta());
+        if (dto.getTipoSangre() != null) paciente.setTipoSangre(dto.getTipoSangre());
     }
-
 
 }
