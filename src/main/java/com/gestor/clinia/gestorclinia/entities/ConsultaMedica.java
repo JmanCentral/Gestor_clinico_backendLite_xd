@@ -1,11 +1,11 @@
 package com.gestor.clinia.gestorclinia.entities;
 
+import com.gestor.clinia.gestorclinia.entities.enums.TipoNotificacion;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
 @Setter
 @Getter
@@ -26,6 +26,9 @@ public class ConsultaMedica {
     private String motivo;
     @Column(nullable = false)
     private String diagnostico;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TipoNotificacion tipoNotificacion;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_paciente", nullable = false)

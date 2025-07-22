@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Paciente {
 
     @Id
