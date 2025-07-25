@@ -1,5 +1,6 @@
 package com.gestor.clinia.gestorclinia.config;
 
+import com.gestor.clinia.gestorclinia.entities.Rol;
 import com.gestor.clinia.gestorclinia.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -32,6 +33,7 @@ public class JwtUtils {
         return Jwts.builder()
                 .setSubject(user.getUsername())
                 .claim("id", user.getId())
+                .claim("roles", user.getRol().stream().map(Rol::getName).toList())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expireTime))
                 .signWith(getSignatureKey(), SignatureAlgorithm.HS256)

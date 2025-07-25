@@ -3,18 +3,13 @@ package com.gestor.clinia.gestorclinia.controllers;
 import com.gestor.clinia.gestorclinia.dtos.PacienteDTO;
 import com.gestor.clinia.gestorclinia.servicies.paciente.IPacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.graphql.data.method.annotation.Argument;
-import org.springframework.graphql.data.method.annotation.MutationMapping;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@Controller
 @RequestMapping("/api/pacientes")
 @CrossOrigin("*")
 public class PacienteController {
@@ -22,34 +17,37 @@ public class PacienteController {
     @Autowired
     private IPacienteService pacienteService;
 
-
-    @MutationMapping
-    public String crearPaciente(@Argument PacienteDTO dto){
+    @PostMapping("/register")
+    public ResponseEntity<Void> crearPaciente(@RequestBody PacienteDTO dto) {
         pacienteService.crearPaciente(dto);
-        return "Paciente creado";
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @QueryMapping
-    public PacienteDTO buscarPaciente(@Argument Long id){
-        return pacienteService.obtenerPacientePorId(id);
+    @GetMapping("/getId/{id}")
+    public ResponseEntity<PacienteDTO> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(pacienteService.obtenerPacientePorId(id));
     }
 
-    @QueryMapping
-    public List<PacienteDTO> findAll() {
-        return pacienteService.listarPacientes();
+    @GetMapping("/all")
+    public ResponseEntity<List<PacienteDTO>> findAll() {
+        return ResponseEntity.ok(pacienteService.listarPacientes());
     }
 
+    @GetMapping("/getByName/{name}")
+    public ResponseEntity<List<PacienteDTO>> findByName(@PathVariable String name) {
+        return ResponseEntity.ok(pacienteService.buscarPorNombre(name));
+    }
 
-    @MutationMapping
-    public String updatePaciente(@Argument Long id, @Argument PacienteDTO dto)   {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Void> updatePaciente(@PathVariable Long id, @RequestBody PacienteDTO dto) {
         pacienteService.actualizarPaciente(id, dto);
-        return "Paciente actualizado";
+        return ResponseEntity.noContent().build();
     }
 
-    @MutationMapping
-    public String deletePaciente(@Argument Long id){
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deletePaciente(@PathVariable Long id) {
         pacienteService.eliminarPaciente(id);
-        return "Paciente eliminado";
+        return ResponseEntity.noContent().build();
     }
 
 }
