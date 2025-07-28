@@ -13,7 +13,7 @@ input ConsultaMedicaRequestDTO {
     horaConsulta: String!
     motivo: String!
     diagnostico: String!
-    tipoNotificacion: TipoNotificacion!
+    tipoNotificacion: TipoNotificacion
     idPaciente: String!
 }
 

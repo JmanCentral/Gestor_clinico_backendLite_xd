@@ -34,11 +34,14 @@ public class IConsultaMedicaServiceImpl implements IConsultaMedicaService{
 
         ConsultaMedica consulta = consultaMedicaMapper.toEntity(dto);
 
+       /*
         HistoriaClinica historiaClinica = historiaClinicaDAO.listarPorPaciente(dto.getIdPaciente());
 
         if (historiaClinica.getAlergias() == null || historiaClinica.getAlergias().isBlank()){
             throw new RuntimeException("El paciente no tiene alergias registradas");
         }
+
+        */
 
         consulta.setTipoNotificacion(dto.getTipoNotificacion());
         Paciente paciente = pacienteDAO.buscarPorId(dto.getIdPaciente());

@@ -7,7 +7,9 @@ type Paciente {
     fechaNacimiento: String!
     direccionCompleta: String!
     tipoSangre: String!
+    consultasMedicas: [ConsultaMedicaResponseDTO]
 }
+
 
 input PacienteDTO {
     nombre: String
