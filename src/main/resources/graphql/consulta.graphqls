@@ -1,0 +1,43 @@
+type ConsultaMedicaResponseDTO {
+    id: ID!
+    fechaConsulta: String!
+    horaConsulta: String!
+    motivo: String!
+    diagnostico: String!
+    tipoNotificacion: TipoNotificacion!
+    idPaciente: ID!
+}
+
+input ConsultaMedicaRequestDTO {
+    fechaConsulta: String!
+    horaConsulta: String!
+    motivo: String!
+    diagnostico: String!
+    tipoNotificacion: TipoNotificacion!
+    idPaciente: String!
+}
+
+input ConsultaMedicaRequestUpdateDTO {
+    fechaConsulta: String
+    horaConsulta: String
+    motivo: String
+    diagnostico: String
+    tipoNotificacion: TipoNotificacion
+    idPaciente: String
+}
+
+enum TipoNotificacion {
+    EMAIL
+    SMS
+}
+
+extend type Query {
+    consultaMedica(id: ID!): ConsultaMedicaResponseDTO
+    consultaMedicaByPaciente(id: ID!): [ConsultaMedicaResponseDTO!]!
+}
+
+extend type Mutation {
+    crearConsulta(dto: ConsultaMedicaRequestDTO): String
+    updateConsulta(id: ID!, dto: ConsultaMedicaRequestUpdateDTO): String
+    deleteConsulta(id: ID!): String
+}

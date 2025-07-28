@@ -4,43 +4,45 @@ import com.gestor.clinia.gestorclinia.dtos.ConsultaMedicaDTO.ConsultaMedicaRespo
 import com.gestor.clinia.gestorclinia.dtos.ConsultaMedicaDTO.ConsultaMedicaUpdateRequestDTO;
 import com.gestor.clinia.gestorclinia.servicies.consultaMedica.IConsultaMedicaServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/consultas")
+@Controller
 @RequiredArgsConstructor
 public class ConsultaMedicaController {
 
     private final IConsultaMedicaServiceImpl consultaMedicaService;
 
-    @PostMapping
-    public ResponseEntity<String> crearConsulta(@RequestBody ConsultaMedicaRequestDTO dto) {
+    @MutationMapping
+    public String crearConsulta(@Argument ConsultaMedicaRequestDTO dto) {
         consultaMedicaService.crearConsulta(dto);
-        return ResponseEntity.ok("Consulta creada");
+        return "Consulta creada";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ConsultaMedicaResponseDTO> consultaMedica(@PathVariable Long id) {
-        return ResponseEntity.ok(consultaMedicaService.obtenerConsultaPorId(id));
+    @QueryMapping
+    public ConsultaMedicaResponseDTO consultaMedica(@Argument Long id) {
+        return consultaMedicaService.obtenerConsultaPorId(id);
     }
 
-    @GetMapping("/paciente/{id}")
-    public ResponseEntity<List<ConsultaMedicaResponseDTO>> consultaMedicaByPaciente(@PathVariable Long id) {
-        return ResponseEntity.ok(consultaMedicaService.listarConsultasPorPaciente(id));
+    @QueryMapping
+    public List<ConsultaMedicaResponseDTO> consultaMedicaByPaciente(@Argument Long id){
+        return consultaMedicaService.listarConsultasPorPaciente(id);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateConsulta(@PathVariable Long id, @RequestBody ConsultaMedicaUpdateRequestDTO dto) {
+    @MutationMapping
+    public String updateConsulta(@Argument Long id , @Argument ConsultaMedicaUpdateRequestDTO dto) {
         consultaMedicaService.actualizarConsulta(id, dto);
-        return ResponseEntity.ok("Consulta actualizada");
+        return "Consulta actualizada";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteConsulta(@PathVariable Long id) {
+    @MutationMapping
+    public String deleteConsulta(@Argument Long id){
         consultaMedicaService.eliminarConsulta(id);
-        return ResponseEntity.ok("Consulta eliminada");
+        return "Consulta eliminada";
     }
+
 }
