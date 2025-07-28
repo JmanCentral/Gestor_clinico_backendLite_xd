@@ -16,13 +16,14 @@ public class IPacienteServiceImpl implements IPacienteService{
     private PacienteDAO  pacienteDAO;
 
     @Override
-    public void crearPaciente(PacienteDTO dto) {
+    public String crearPaciente(PacienteDTO dto) {
         Paciente paciente = dtoToEntity(dto);
         pacienteDAO.guardar(paciente);
+        return "Paciente creado con éxito";
     }
 
     @Override
-    public void actualizarPaciente(Long id  , PacienteDTO dto) {
+    public String actualizarPaciente(Long id  , PacienteDTO dto) {
 
         Paciente existePaciente = pacienteDAO.buscarPorId(id);
 
@@ -32,6 +33,8 @@ public class IPacienteServiceImpl implements IPacienteService{
         } else {
             throw new EntityNotFoundException("Paciente con id " + id + " no encontrado.");
         }
+
+        return "Paciente modificado con exito";
 
     }
 

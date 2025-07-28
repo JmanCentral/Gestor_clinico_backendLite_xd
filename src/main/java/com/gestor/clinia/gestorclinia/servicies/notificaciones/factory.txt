@@ -1,0 +1,19 @@
+@Component
+public class NotificacionFactory {
+
+    private final Map<String, Notificacion> estrategias;
+
+    public NotificacionFactory(List<Notificacion> notificaciones) {
+        this.estrategias = new HashMap<>();
+        for (Notificacion n : notificaciones) {
+            estrategias.put(n.getTipo().toUpperCase(), n);
+        }
+    }
+    public Notificacion getNotificacion(String tipo) {
+        Notificacion estrategia = estrategias.get(tipo.toUpperCase());
+        if (estrategia == null) {
+            throw new IllegalArgumentException("No existe un canal de notificación para: " + tipo);
+        }
+        return estrategia;
+    }
+}

@@ -1,0 +1,33 @@
+type Paciente {
+    id: ID!
+    nombre: String!
+    documento: String!
+    correo: String!
+    telefono: String!
+    fechaNacimiento: String!
+    direccionCompleta: String!
+    tipoSangre: String!
+    consultasMedicas: [ConsultaMedicaResponseDTO]
+}
+
+
+input PacienteDTO {
+    nombre: String
+    documento: String
+    correo: String
+    telefono: String
+    fechaNacimiento: String
+    direccionCompleta: String
+    tipoSangre: String
+}
+
+extend type Query {
+    findAll: [Paciente!]!
+    buscarPaciente(id: ID!): Paciente
+}
+
+extend type Mutation {
+    crearPaciente(dto: PacienteDTO): String
+    updatePaciente(id: ID!, dto: PacienteDTO): String
+    deletePaciente(id: ID!): String
+}
