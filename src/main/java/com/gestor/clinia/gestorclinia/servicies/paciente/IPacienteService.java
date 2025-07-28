@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface IPacienteService {
 
-    void crearPaciente(PacienteDTO dto);
-    void actualizarPaciente(Long id , PacienteDTO dto);
+    String crearPaciente(PacienteDTO dto);
+    String actualizarPaciente(Long id , PacienteDTO dto);
     void eliminarPaciente(Long id);
     PacienteDTO obtenerPacientePorId(Long id);
     List<PacienteDTO> buscarPorNombre(String nombre);

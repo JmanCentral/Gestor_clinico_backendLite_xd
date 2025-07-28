@@ -1,0 +1,72 @@
+type Query {
+    #Queries paciente
+    findAll: [Paciente!]!
+    buscarPaciente(id: ID!): Paciente
+
+    #Queries consulta
+    consultaMedica(id: ID!): ConsultaMedicaResponseDTO
+    consultaMedicaByPaciente(id:ID!): [ConsultaMedicaResponseDTO!]!
+}
+#queries paciente
+
+type Mutation {
+    #Mutaciones del paciente
+    crearPaciente(dto: PacienteDTO) : String
+    updatePaciente(id: ID!, dto: PacienteDTO) : String
+    deletePaciente(id: ID!): String
+
+    #Mutaciones de la consulta
+    crearConsulta(dto: ConsultaMedicaRequestDTO): String
+    updateConsulta(id:ID! , dto: ConsultaMedicaRequestUpdateDTO): String
+    deleteConsulta(id:ID!): String
+
+}
+
+input PacienteDTO {
+    nombre: String
+    documento: String
+    correo: String
+    telefono: String
+    fechaNacimiento: String
+    direccionCompleta: String
+    tipoSangre: String
+}
+type Paciente {
+    id: ID!
+    nombre: String!
+    documento: String!
+    correo: String!
+    telefono: String!
+    fechaNacimiento: String!
+    direccionCompleta: String!
+    tipoSangre: String!
+}
+#queries Consulta
+input ConsultaMedicaRequestDTO {
+    fechaConsulta: String!
+    horaConsulta: String!
+    motivo: String!
+    diagnostico: String!
+    idPaciente: String!
+}
+
+input ConsultaMedicaRequestUpdateDTO {
+    fechaConsulta: String
+    horaConsulta: String
+    motivo: String
+    diagnostico: String
+    idPaciente: String
+}
+
+type ConsultaMedicaResponseDTO {
+    id: ID!
+    fechaConsulta: String!
+    horaConsulta: String!
+    motivo: String!
+    diagnostico: String!
+    idPaciente: ID!
+}
+
+
+
+
